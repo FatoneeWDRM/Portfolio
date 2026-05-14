@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FATONEE_WDRM // ACCESS_GRANTED</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #050810;
+            --bg-secondary: #0a0f1e;
+            --bg-panel: #0d1527;
+            --accent-blue: #00d4ff;
+            --accent-cyan: #00ffcc;
+            --accent-amber: #ffaa00;
+            --text-primary: #c8e6ff;
+            --text-dim: #4a6080;
+            --border-glow: rgba(0, 212, 255, 0.3);
+            --danger: #ff3366;
+            --font-display: 'VT323', monospace;
+            --font-ui: 'Fira Code', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: crosshair;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: var(--font-ui);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Scanline Overlay */
+        body::before {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 9999;
+            background-size: 100% 4px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* Background Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.15;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-primary);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-blue);
+            box-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        /* Typography & Glitch */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .glitch {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+        }
+
+        .glitch::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--danger);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim 5s infinite linear alternate-reverse;
+        }
+
+        .glitch::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--accent-cyan);
+            clip: rect(44px, 450px, 56px, 0);
+            animation: glitch-anim2 5s infinite linear alternate-reverse;
+        }
+
+        @keyframes glitch-anim {
+            0% { clip: rect(31px, 9999px, 94px, 0); }
+            5% { clip: rect(70px, 9999px, 71px, 0); }
+            100% { clip: rect(67px, 9999px, 34px, 0); }
+        }
+
+        @keyframes glitch-anim2 {
+            0% { clip: rect(10px, 9999px, 20px, 0); }
+            100% { clip: rect(80px, 9999px, 90px, 0); }
+        }
+
+        /* Navigation Taskbar */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg-panel);
+            border-bottom: 1px solid var(--accent-blue);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 20px;
+            z-index: 1000;
+            font-size: 0.8rem;
+            box-shadow: 0 0 15px var(--border-glow);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            color: var(--text-dim);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-cyan);
+            text-shadow: 0 0 5px var(--accent-cyan);
+        }
+
+        .sys-stats {
+            display: flex;
+            gap: 20px;
+            color: var(--accent-amber);
+        }
+
+        /* Hero / Boot Screen */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10%;
+            background: radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 100%);
+        }
+
+        .boot-sequence {
+            font-family: var(--font-ui);
+            color: var(--accent-cyan);
+            margin-bottom: 20px;
+        }
+
+        .hero-name {
+            font-size: 5rem;
+            color: var(--accent-blue);
+            margin-bottom: 10px;
+        }
+
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 1.2em;
+            background: var(--accent-blue);
+            margin-left: 5px;
+            animation: blink 1s step-end infinite;
+        }
+
+        @keyframes blink {
+            50% { opacity: 0; }
+        }
+
+        /* Layout Sections */
+        section {
+            padding: 100px 10%;
+            min-height: 100vh;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            margin-bottom: 50px;
+            border-bottom: 1px solid var(--accent-blue);
+            display: inline-block;
+            padding-right: 50px;
+        }
+
+        /* Terminal Window Styling */
+        .terminal-window {
+            background: var(--bg-panel);
+            border: 1px solid var(--accent-blue);
+            box-shadow: 0 0 20px var(--border-glow);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            background: #1a263d;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .dot { height: 10px; width: 10px; border-radius: 50%; }
+        .red { background: #ff5f56; }
+        .yellow { background: #ffbd2e; }
+        .green { background: #27c93f; }
+        .terminal-title { margin-left: 10px; font-size: 0.7rem; color: var(--text-dim); flex-grow: 1; }
+
+        .terminal-body {
+            padding: 20px;
+            font-family: var(--font-ui);
+        }
+
+        /* Skills */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .skill-item {
+            margin-bottom: 20px;
+        }
+
+        .skill-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .progress-track {
+            height: 10px;
+            background: var(--bg-secondary);
+            border: 1px solid var(--accent-blue);
+            position: relative;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent-blue);
+            width: 0%;
+            transition: width 1.5s ease-out;
+            box-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        /* Projects */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .project-card {
+            border: 1px solid var(--text-dim);
+            padding: 20px;
+            transition: all 0.3s;
+            position: relative;
+            background: var(--bg-panel);
+        }
+
+        .project-card:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 15px var(--border-glow);
+            transform: translateY(-5px);
+        }
+
+        .project-tag {
+            font-size: 0.7rem;
+            color: var(--accent-amber);
+            margin-right: 10px;
+        }
+
+        .btn-view {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 5px 15px;
+            border: 1px solid var(--accent-blue);
+            color: var(--accent-blue);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .btn-view:hover {
+            background: var(--accent-blue);
+            color: var(--bg-primary);
+        }
+
+        /* Contact */
+        .contact-form {
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--accent-cyan);
+            margin-bottom: 5px;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--text-dim);
+            color: var(--text-primary);
+            font-family: var(--font-ui);
+            padding: 10px 0;
+            outline: none;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            border-bottom-color: var(--accent-blue);
+        }
+
+        .btn-submit {
+            background: transparent;
+            border: 1px solid var(--accent-amber);
+            color: var(--accent-amber);
+            padding: 10px 30px;
+            font-family: var(--font-ui);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-submit:hover {
+            background: var(--accent-amber);
+            color: var(--bg-primary);
+            box-shadow: 0 0 15px var(--accent-amber);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero-name { font-size: 3rem; }
+            .sys-stats { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bg-canvas"></canvas>
+
+    <nav>
+        <div class="nav-links">
+            <a href="#home" class="active">[HOME]</a>
+            <a href="#about">[ABOUT]</a>
+            <a href="#skills">[SKILLS]</a>
+            <a href="#projects">[PROJECTS]</a>
+            <a href="#contact">[CONTACT]</a>
+        </div>
+        <div class="sys-stats">
+            <span id="sys-ip">IP: 192.168.1.101</span>
+            <span id="sys-clock">00:00:00</span>
+            <span>SIGNAL: |||||</span>
+        </div>
+    </nav>
+
+    <header id="home">
+        <div class="boot-sequence" id="boot-text"></div>
+        <h1 class="hero-name glitch" data-text="FATONEE WAEDARAMAE">FATONEE WAEDARAMAE</h1>
+        <p class="role-text">> FULL_STACK_ENGINEER // SECURITY_ENTHUSIAST<span class="cursor"></span></p>
+    </header>
+
+    <section id="about">
+        <h2 class="section-title">01_PROFILE</h2>
+        <div class="terminal-window">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+                <div class="terminal-title">root@portfolio:~$ cat about.txt</div>
+            </div>
+            <div class="terminal-body">
+                <p>> Initializing profile retrieval...</p>
+                <p>> Identity: FATONEE WAEDARAMAE</p>
+                <p>> Status: Active</p>
+                <br>
+                <p>IT Support professional with a solid technical background in full-stack development, systems troubleshooting, and end-user training.</p>
+                <p>Graduated in Computer and Informatics for Management from Prince of Songkla University (2025). Adept at breaking down complex technical concepts for non-technical users, and passionate about delivering reliable, user-focused support.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2 class="section-title">02_SYSTEM_SCAN</h2>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="skill-label"><span>REACT / NEXT.JS</span><span>90%</span></div>
+                <div class="progress-track"><div class="progress-fill" data-percent="90"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-label"><span>TYPESCRIPT</span><span>85%</span></div>
+                <div class="progress-track"><div class="progress-fill" data-percent="85"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-label"><span>NODE.JS / EXPRESS</span><span>82%</span></div>
+                <div class="progress-track"><div class="progress-fill" data-percent="82"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-label"><span>PYTHON / PHP</span><span>80%</span></div>
+                <div class="progress-track"><div class="progress-fill" data-percent="80"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-label"><span>MYSQL / MONGODB</span><span>88%</span></div>
+                <div class="progress-track"><div class="progress-fill" data-percent="88"></div></div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-label"><span>LINUX (UBUNTU)</span><span>80%</span></div>
+                <div class="progress-track"><div class="progress-fill" data-percent="80"></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2 class="section-title">03_EXPLOIT_LIST</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>SEO_CONTENT_MS</h3>
+                <p class="tech-stack"><span class="project-tag">#React</span><span class="project-tag">#NextJS</span><span class="project-tag">#NodeJS</span></p>
+                <p>Backoffice platform with Google Search Console API integration for real-time keyword monitoring.</p>
+                <a href="https://github.com/FatoneeWDRM" class="btn-view">[VIEW_SOURCE]</a>
+            </div>
+            <div class="project-card">
+                <h3>ICOURSE_SYSTEM</h3>
+                <p class="tech-stack"><span class="project-tag">#NextJS</span><span class="project-tag">#TypeScript</span><span class="project-tag">#MongoDB</span></p>
+                <p>Management system supporting learner enrollment, progress tracking, and role-based access control (RBAC).</p>
+                <a href="https://github.com/FatoneeWDRM" class="btn-view">[VIEW_SOURCE]</a>
+            </div>
+            <div class="project-card">
+                <h3>DENTAL_BOOKING</h3>
+                <p class="tech-stack"><span class="project-tag">#PHP</span><span class="project-tag">#MySQL</span></p>
+                <p>Patient-facing scheduling system and dentist dashboard for managing availability and schedules.</p>
+                <a href="https://github.com/FatoneeWDRM" class="btn-view">[VIEW_SOURCE]</a>
+            </div>
+            <div class="project-card">
+                <h3>FITTRACK_APP</h3>
+                <p class="tech-stack"><span class="project-tag">#React_Native</span></p>
+                <p>Mobile app for calorie calculation and personalized workout planning with trainer-to-user workflow.</p>
+                <a href="https://github.com/FatoneeWDRM" class="btn-view">[VIEW_SOURCE]</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2 class="section-title">04_SECURE_CHANNEL</h2>
+        <div class="terminal-window contact-form">
+            <div class="terminal-header">
+                <div class="dot red"></div>
+                <div class="dot yellow"></div>
+                <div class="dot green"></div>
+                <div class="terminal-title">root@portfolio:~$ finger fatonee</div>
+            </div>
+            <div class="terminal-body">
+                <div style="margin-bottom: 30px; font-family: var(--font-ui); color: var(--accent-amber);">
+                    <p>> [LOC]: Thailand</p>
+                    <p>> [TEL]: 0824605206</p>
+                    <p>> [EML]: fatonee2026@gmail.com</p>
+                    <p>> [HUB]: github.com/FatoneeWDRM</p>
+                </div>
+                <form id="hacker-form">
+                    <div class="form-group">
+                        <label>_IDENTIFIER</label>
+                        <input type="text" placeholder="Enter your name..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>_COMMS_LINK</label>
+                        <input type="email" placeholder="Enter your email..." required>
+                    </div>
+                    <div class="form-group">
+                        <label>_ENCRYPTED_MESSAGE</label>
+                        <textarea rows="4" placeholder="Type your message..."></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">> SEND_MESSAGE.exe</button>
+                </form>
+                <div id="form-status" style="margin-top: 20px; color: var(--accent-cyan); display: none;"></div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Background Canvas Effect (Subtle Binary/Matrix)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        const chars = '01';
+        const fontSize = 14;
+        const columns = Math.floor(width / fontSize);
+        const drops = Array(columns).fill(1);
+
+        function draw() {
+            ctx.fillStyle = 'rgba(5, 8, 16, 0.05)';
+            ctx.fillRect(0, 0, width, height);
+            ctx.fillStyle = '#00d4ff';
+            ctx.font = fontSize + 'px monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 50);
+
+        // System Clock
+        function updateClock() {
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ':' +
+                         now.getMinutes().toString().padStart(2, '0') + ':' +
+                         now.getSeconds().toString().padStart(2, '0');
+            document.getElementById('sys-clock').textContent = time;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Typewriter Effect for Boot Sequence
+        const bootLines = [
+            "> Initializing system...",
+            "> Loading kernel modules...",
+            "> Checking network interfaces...",
+            "> ACCESS GRANTED",
+            "> Loading profile: FATONEE WAEDARAMAE"
+        ];
+        const bootText = document.getElementById('boot-text');
+        let lineIdx = 0;
+
+        function typeBootLine() {
+            if (lineIdx < bootLines.length) {
+                const p = document.createElement('p');
+                bootText.appendChild(p);
+                let charIdx = 0;
+                const line = bootLines[lineIdx];
+                
+                function typeChar() {
+                    if (charIdx < line.length) {
+                        p.textContent += line[charIdx];
+                        charIdx++;
+                        setTimeout(typeChar, 30);
+                    } else {
+                        lineIdx++;
+                        setTimeout(typeBootLine, 200);
+                    }
+                }
+                typeChar();
+            }
+        }
+        typeBootLine();
+
+        // Skill Bars Animation on Scroll
+        const observerOptions = { threshold: 0.5 };
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const fills = entry.target.querySelectorAll('.progress-fill');
+                    fills.forEach(fill => {
+                        fill.style.width = fill.getAttribute('data-percent') + '%';
+                    });
+                }
+            });
+        }, observerOptions);
+        skillObserver.observe(document.getElementById('skills'));
+
+        // Form Handling Simulation
+        const form = document.getElementById('hacker-form');
+        const status = document.getElementById('form-status');
+
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            form.style.display = 'none';
+            status.style.display = 'block';
+            status.textContent = '> Establishing secure connection...';
+            
+            setTimeout(() => {
+                status.textContent = '> Encrypting packet data...';
+                setTimeout(() => {
+                    status.textContent = '> MESSAGE SENT SUCCESSFULLY. LOGGING OUT...';
+                }, 1500);
+            }, 1000);
+        });
+
+        // Smooth Scroll & Active Link
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
