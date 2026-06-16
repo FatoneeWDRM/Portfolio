@@ -287,17 +287,27 @@
 
     <section id="about">
         <h2 class="section-title">01_PROFILE</h2>
-        <div class="terminal-window">
-            <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><div style="margin-left:10px;font-size:0.7rem;color:var(--text-dim)">root@portfolio:~$ cat about.txt</div></div>
-            <div class="terminal-body">
-                <p>> Identity: FATONEE WAEDARAMAE</p>
-                <p>> Status: Active</p>
-                <p>> Education: B.Sc. Computer and Informatics for Management | GPAX: 3.20</p>
-                <p>> Institution: Prince of Songkla University, Pattani Campus | 2022 – 2025</p>
-                <p>> Coursework: Data Structures, Database Systems, Software Engineering, Web Development</p><br>
-                <p>IT professional with hands-on experience in full-stack development, systems troubleshooting, and end-user technical support. Skilled at reading workflows and logs, resolving technical issues efficiently under time pressure.</p><br>
-                <p>Strong communicator with experience coordinating cross-functional teams and training users with varying skill levels. Passionate about delivering reliable, user-focused support with a growth mindset.</p><br>
-                <p style="color:var(--accent-amber)"> > CORE_COMPETENCIES: Critical Thinking • Problem Solving • Time Management • Effective Communication • Teamwork • Service Mind • Leadership • Growth Mindset</p>
+        <div class="about-container" style="display: flex; gap: 40px; align-items: flex-start; flex-wrap: wrap;">
+            <div class="profile-image-wrapper" style="flex: 0 0 250px; position: relative; border: 1px solid var(--accent-blue); padding: 5px; background: rgba(0, 212, 255, 0.05); box-shadow: 0 0 15px var(--border-glow);">
+                <img src="images/profile.jpg" alt="FATONEE WAEDARAMAE" style="width: 100%; display: block; filter: contrast(1.1) brightness(0.9) grayscale(10%);">
+                <!-- Scanline Overlay -->
+                <div style="position: absolute; inset: 0; background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,212,255,0.05) 2px, rgba(0,212,255,0.05) 4px); pointer-events: none;"></div>
+                <!-- Tech Corners -->
+                <div style="position: absolute; bottom: -1px; right: -1px; width: 20px; height: 20px; border-bottom: 2px solid var(--accent-amber); border-right: 2px solid var(--accent-amber);"></div>
+                <div style="position: absolute; top: -1px; left: -1px; width: 20px; height: 20px; border-top: 2px solid var(--accent-amber); border-left: 2px solid var(--accent-amber);"></div>
+            </div>
+            <div class="terminal-window" style="flex: 1; min-width: 300px;">
+                <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><div style="margin-left:10px;font-size:0.7rem;color:var(--text-dim)">root@portfolio:~$ cat about.txt</div></div>
+                <div class="terminal-body">
+                    <p>> Identity: FATONEE WAEDARAMAE</p>
+                    <p>> Status: Active</p>
+                    <p>> Education: B.Sc. Computer and Informatics for Management | GPAX: 3.20</p>
+                    <p>> Institution: Prince of Songkla University, Pattani Campus | 2022 – 2025</p>
+                    <p>> Coursework: Data Structures, Database Systems, Software Engineering, Web Development</p><br>
+                    <p>IT professional with hands-on experience in full-stack development, systems troubleshooting, and end-user technical support. Skilled at reading workflows and logs, resolving technical issues efficiently under time pressure.</p><br>
+                    <p>Strong communicator with experience coordinating cross-functional teams and training users with varying skill levels. Passionate about delivering reliable, user-focused support with a growth mindset.</p><br>
+                    <p style="color:var(--accent-amber)"> > CORE_COMPETENCIES: Critical Thinking • Problem Solving • Time Management • Effective Communication • Teamwork • Service Mind • Leadership • Growth Mindset</p>
+                </div>
             </div>
         </div>
     </section>
