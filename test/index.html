@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FATONEE_WDRM // ACCESS_GRANTED</title>
+    <title>FATONEE_WDRM // Technical Support | IT Support | Full Stack Developer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500&family=VT323&display=swap" rel="stylesheet">
@@ -39,598 +39,622 @@
             position: relative;
         }
 
-        /* Scanline Overlay */
         body::before {
             content: " ";
             display: block;
             position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            right: 0;
+            top: 0; left: 0; bottom: 0; right: 0;
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
             z-index: 9999;
             background-size: 100% 4px, 3px 100%;
             pointer-events: none;
         }
 
-        /* Background Canvas */
         #bg-canvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1;
             opacity: 0.15;
         }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-primary);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--accent-blue);
-            box-shadow: 0 0 10px var(--accent-blue);
-        }
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent-blue); box-shadow: 0 0 10px var(--accent-blue); }
 
-        /* Typography & Glitch */
-        h1, h2, h3 {
-            font-family: var(--font-display);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+        h1, h2, h3 { font-family: var(--font-display); text-transform: uppercase; letter-spacing: 2px; }
 
-        .glitch {
-            position: relative;
-            display: inline-block;
-        }
-
+        .glitch { position: relative; display: inline-block; }
         .glitch::before, .glitch::after {
             content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
             background: var(--bg-primary);
         }
+        .glitch::before { left: 2px; text-shadow: -2px 0 var(--danger); clip: rect(44px, 450px, 56px, 0); animation: glitch-anim 5s infinite linear alternate-reverse; }
+        .glitch::after { left: -2px; text-shadow: -2px 0 var(--accent-cyan); clip: rect(44px, 450px, 56px, 0); animation: glitch-anim2 5s infinite linear alternate-reverse; }
 
-        .glitch::before {
-            left: 2px;
-            text-shadow: -2px 0 var(--danger);
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim 5s infinite linear alternate-reverse;
-        }
+        @keyframes glitch-anim { 0% { clip: rect(31px, 9999px, 94px, 0); } 100% { clip: rect(67px, 9999px, 34px, 0); } }
+        @keyframes glitch-anim2 { 0% { clip: rect(10px, 9999px, 20px, 0); } 100% { clip: rect(80px, 9999px, 90px, 0); } }
 
-        .glitch::after {
-            left: -2px;
-            text-shadow: -2px 0 var(--accent-cyan);
-            clip: rect(44px, 450px, 56px, 0);
-            animation: glitch-anim2 5s infinite linear alternate-reverse;
-        }
-
-        @keyframes glitch-anim {
-            0% { clip: rect(31px, 9999px, 94px, 0); }
-            5% { clip: rect(70px, 9999px, 71px, 0); }
-            100% { clip: rect(67px, 9999px, 34px, 0); }
-        }
-
-        @keyframes glitch-anim2 {
-            0% { clip: rect(10px, 9999px, 20px, 0); }
-            100% { clip: rect(80px, 9999px, 90px, 0); }
-        }
-
-        /* Navigation Taskbar */
         nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: var(--bg-panel);
-            border-bottom: 1px solid var(--accent-blue);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 5px 20px;
-            z-index: 1000;
-            font-size: 0.8rem;
-            box-shadow: 0 0 15px var(--border-glow);
+            position: fixed; top: 0; width: 100%; background: var(--bg-panel);
+            border-bottom: 1px solid var(--accent-blue); display: flex;
+            justify-content: space-between; align-items: center; padding: 5px 20px;
+            z-index: 1000; font-size: 0.8rem; box-shadow: 0 0 15px var(--border-glow);
         }
 
-        .nav-links {
-            display: flex;
-            gap: 15px;
+        .nav-links { display: flex; gap: 15px; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; transition: color 0.3s; }
+        .nav-links a:hover, .nav-links a.active { color: var(--accent-cyan); text-shadow: 0 0 5px var(--accent-cyan); }
+
+        .menu-toggle { display: none; font-size: 1.5rem; color: var(--accent-blue); cursor: pointer; }
+
+        .sys-stats { display: flex; gap: 20px; color: var(--accent-amber); align-items: center; }
+        .mission-status { color: var(--accent-cyan); border: 1px solid var(--accent-cyan); padding: 2px 8px; font-size: 0.7rem; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        #terminal-overlay {
+            position: fixed; bottom: 20px; right: 20px; width: 400px; height: 250px;
+            background: rgba(5, 8, 16, 0.95); border: 1px solid var(--accent-blue);
+            box-shadow: 0 0 20px var(--border-glow); z-index: 1001;
+            display: flex; flex-direction: column; font-size: 0.8rem; transition: transform 0.3s;
+        }
+        #terminal-overlay.minimized { transform: translateY(215px); }
+        .term-header { background: var(--bg-panel); padding: 5px 10px; display: flex; justify-content: space-between; border-bottom: 1px solid var(--accent-blue); cursor: pointer; }
+        .term-body { padding: 10px; flex-grow: 1; overflow-y: auto; color: var(--accent-cyan); font-family: var(--font-ui); }
+        .term-input-line { display: flex; gap: 5px; padding: 5px 10px; border-top: 1px solid rgba(0, 212, 255, 0.2); }
+        .term-input { background: transparent; border: none; color: var(--text-primary); outline: none; flex-grow: 1; font-family: var(--font-ui); }
+
+        .sound-toggle { cursor: pointer; color: var(--accent-amber); }
+
+        .project-card { border: 1px solid var(--text-dim); padding: 20px; transition: all 0.3s; position: relative; background: var(--bg-panel); overflow: hidden; }
+        .project-card:hover { border-color: var(--accent-cyan); box-shadow: 0 0 15px var(--border-glow); transform: translateY(-5px); }
+        .project-card::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(45deg, transparent 48%, var(--accent-blue) 50%, transparent 52%); background-size: 200% 200%; opacity: 0.1; pointer-events: none; }
+        .project-card:hover::after { animation: sweep 2s infinite; }
+        @keyframes sweep { 0% { background-position: -200% -200%; } 100% { background-position: 200% 200%; } }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; position: absolute; top: 100%; left: 0; width: 100%; background: var(--bg-panel); flex-direction: column; padding: 20px; border-bottom: 1px solid var(--accent-blue); }
+            .nav-links.open { display: flex; }
+            .menu-toggle { display: block; }
+            .hero-name { font-size: 2.5rem; }
+            #terminal-overlay { width: 90%; right: 5%; left: 5%; bottom: 10px; }
+            .sys-stats span:not(.sound-toggle) { display: none; }
         }
 
-        .nav-links a {
-            color: var(--text-dim);
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+        header { height: 100vh; display: flex; flex-direction: column; justify-content: center; padding: 0 10%; background: radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 100%); }
+        .boot-sequence { font-family: var(--font-ui); color: var(--accent-cyan); margin-bottom: 20px; min-height: 100px; }
+        .hero-name { font-size: 5rem; color: var(--accent-blue); margin-bottom: 10px; }
+        .cursor { display: inline-block; width: 10px; height: 1.2em; background: var(--accent-blue); margin-left: 5px; animation: blink 1s step-end infinite; }
+        @keyframes blink { 50% { opacity: 0; } }
 
-        .nav-links a:hover, .nav-links a.active {
-            color: var(--accent-cyan);
-            text-shadow: 0 0 5px var(--accent-cyan);
-        }
+        section { padding: 100px 10%; min-height: 100vh; }
+        .section-title { font-size: 3rem; margin-bottom: 50px; border-bottom: 1px solid var(--accent-blue); display: inline-block; padding-right: 50px; }
 
-        .sys-stats {
-            display: flex;
-            gap: 20px;
-            color: var(--accent-amber);
-        }
+        .terminal-window { background: var(--bg-panel); border: 1px solid var(--accent-blue); box-shadow: 0 0 20px var(--border-glow); border-radius: 5px; overflow: hidden; }
+        .terminal-header { background: #1a263d; padding: 8px 15px; display: flex; align-items: center; gap: 8px; }
+        .dot { height: 10px; width: 10px; border-radius: 50%; }
+        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
+        .terminal-body { padding: 20px; font-family: var(--font-ui); }
 
-        /* Hero / Boot Screen */
-        header {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 0 10%;
-            background: radial-gradient(circle at center, var(--bg-secondary) 0%, var(--bg-primary) 100%);
-        }
+        .skills-tag-grid { display: flex; flex-wrap: wrap; gap: 12px; }
+        .skill-badge { padding: 8px 15px; border: 1px solid var(--accent-blue); background: rgba(0, 212, 255, 0.05); color: var(--accent-cyan); font-family: var(--font-ui); font-size: 0.9rem; transition: all 0.3s; }
+        .skill-badge:hover { background: rgba(0, 212, 255, 0.2); box-shadow: 0 0 10px var(--border-glow); transform: translateY(-2px); color: var(--text-primary); }
 
-        .boot-sequence {
-            font-family: var(--font-ui);
-            color: var(--accent-cyan);
-            margin-bottom: 20px;
-        }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+        .project-tag { font-size: 0.7rem; color: var(--accent-amber); margin-right: 10px; }
+        .btn-view { display: inline-block; margin-top: 15px; padding: 5px 15px; border: 1px solid var(--accent-blue); color: var(--accent-blue); text-decoration: none; font-size: 0.8rem; transition: all 0.3s; }
+        .btn-view:hover { background: var(--accent-blue); color: var(--bg-primary); }
 
-        .hero-name {
-            font-size: 5rem;
-            color: var(--accent-blue);
+        .contact-form { max-width: 600px; }
+        .form-group { margin-bottom: 30px; position: relative; }
+        .form-group label { display: block; font-size: 0.8rem; color: var(--accent-cyan); margin-bottom: 5px; }
+        .form-group input, .form-group textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid var(--text-dim); color: var(--text-primary); font-family: var(--font-ui); padding: 10px 0; outline: none; }
+        .form-group input:focus, .form-group textarea:focus { border-bottom-color: var(--accent-blue); }
+        .btn-submit { background: transparent; border: 1px solid var(--accent-amber); color: var(--accent-amber); padding: 10px 30px; font-family: var(--font-ui); cursor: pointer; transition: all 0.3s; }
+        .btn-submit:hover { background: var(--accent-amber); color: var(--bg-primary); box-shadow: 0 0 15px var(--accent-amber); }
+
+        /* Portfolio Gallery */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
+            margin-top: 15px;
             margin-bottom: 10px;
         }
-
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 1.2em;
-            background: var(--accent-blue);
-            margin-left: 5px;
-            animation: blink 1s step-end infinite;
-        }
-
-        @keyframes blink {
-            50% { opacity: 0; }
-        }
-
-        /* Layout Sections */
-        section {
-            padding: 100px 10%;
-            min-height: 100vh;
-        }
-
-        .section-title {
-            font-size: 3rem;
-            margin-bottom: 50px;
-            border-bottom: 1px solid var(--accent-blue);
-            display: inline-block;
-            padding-right: 50px;
-        }
-
-        /* Terminal Window Styling */
-        .terminal-window {
-            background: var(--bg-panel);
-            border: 1px solid var(--accent-blue);
-            box-shadow: 0 0 20px var(--border-glow);
-            border-radius: 5px;
+        .gallery-thumb {
+            position: relative;
+            aspect-ratio: 16/10;
             overflow: hidden;
-        }
-
-        .terminal-header {
-            background: #1a263d;
-            padding: 8px 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        .dot { height: 10px; width: 10px; border-radius: 50%; }
-        .red { background: #ff5f56; }
-        .yellow { background: #ffbd2e; }
-        .green { background: #27c93f; }
-        .terminal-title { margin-left: 10px; font-size: 0.7rem; color: var(--text-dim); flex-grow: 1; }
-
-        .terminal-body {
-            padding: 20px;
-            font-family: var(--font-ui);
-        }
-
-        /* Skills */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .skill-item {
-            margin-bottom: 20px;
-        }
-
-        .skill-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-
-        .progress-track {
-            height: 10px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--accent-blue);
-            position: relative;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: var(--accent-blue);
-            width: 0%;
-            transition: width 1.5s ease-out;
-            box-shadow: 0 0 10px var(--accent-blue);
-        }
-
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .project-card {
             border: 1px solid var(--text-dim);
-            padding: 20px;
-            transition: all 0.3s;
-            position: relative;
-            background: var(--bg-panel);
-        }
-
-        .project-card:hover {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 0 15px var(--border-glow);
-            transform: translateY(-5px);
-        }
-
-        .project-tag {
-            font-size: 0.7rem;
-            color: var(--accent-amber);
-            margin-right: 10px;
-        }
-
-        .btn-view {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 5px 15px;
-            border: 1px solid var(--accent-blue);
-            color: var(--accent-blue);
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: all 0.3s;
-        }
-
-        .btn-view:hover {
-            background: var(--accent-blue);
-            color: var(--bg-primary);
-        }
-
-        /* Contact */
-        .contact-form {
-            max-width: 600px;
-        }
-
-        .form-group {
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--accent-cyan);
-            margin-bottom: 5px;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            background: transparent;
-            border: none;
-            border-bottom: 1px solid var(--text-dim);
-            color: var(--text-primary);
-            font-family: var(--font-ui);
-            padding: 10px 0;
-            outline: none;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            border-bottom-color: var(--accent-blue);
-        }
-
-        .btn-submit {
-            background: transparent;
-            border: 1px solid var(--accent-amber);
-            color: var(--accent-amber);
-            padding: 10px 30px;
-            font-family: var(--font-ui);
             cursor: pointer;
             transition: all 0.3s;
         }
-
-        .btn-submit:hover {
-            background: var(--accent-amber);
-            color: var(--bg-primary);
-            box-shadow: 0 0 15px var(--accent-amber);
+        .gallery-thumb:hover {
+            border-color: var(--accent-cyan);
+            box-shadow: 0 0 12px var(--border-glow);
+            transform: scale(1.05);
+            z-index: 2;
+        }
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(30%) brightness(0.8);
+            transition: filter 0.3s;
+        }
+        .gallery-thumb:hover img {
+            filter: grayscale(0%) brightness(1);
+        }
+        .gallery-thumb::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,0,0,0.1) 2px, rgba(0,0,0,0.1) 4px);
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        .gallery-thumb:hover::after { opacity: 0; }
+        .gallery-more {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-secondary);
+            color: var(--accent-amber);
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            letter-spacing: 1px;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-name { font-size: 3rem; }
-            .sys-stats { display: none; }
+        /* Lightbox */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(5, 8, 16, 0.95);
+            z-index: 10000;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .lightbox-overlay.active { display: flex; }
+        .lightbox-img {
+            max-width: 85vw;
+            max-height: 80vh;
+            object-fit: contain;
+            border: 2px solid var(--accent-blue);
+            box-shadow: 0 0 40px var(--border-glow);
+        }
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 2.5rem;
+            color: var(--accent-cyan);
+            cursor: pointer;
+            font-family: var(--font-display);
+            transition: color 0.3s;
+            z-index: 10001;
+        }
+        .lightbox-close:hover { color: var(--danger); }
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 3rem;
+            color: var(--accent-blue);
+            cursor: pointer;
+            font-family: var(--font-display);
+            transition: all 0.3s;
+            padding: 10px;
+            user-select: none;
+        }
+        .lightbox-nav:hover { color: var(--accent-cyan); text-shadow: 0 0 15px var(--accent-cyan); }
+        .lightbox-prev { left: 20px; }
+        .lightbox-next { right: 20px; }
+        .lightbox-counter {
+            margin-top: 15px;
+            color: var(--text-dim);
+            font-family: var(--font-ui);
+            font-size: 0.8rem;
         }
     </style>
 </head>
 <body>
     <canvas id="bg-canvas"></canvas>
-
     <nav>
-        <div class="nav-links">
+        <div class="menu-toggle" id="menu-toggle">☰</div>
+        <div class="nav-links" id="nav-links">
             <a href="#home" class="active">[HOME]</a>
             <a href="#about">[ABOUT]</a>
             <a href="#skills">[SKILLS]</a>
             <a href="#projects">[PROJECTS]</a>
+            <a href="#portfolio">[PORTFOLIO]</a>
             <a href="#contact">[CONTACT]</a>
         </div>
         <div class="sys-stats">
-            <span id="sys-ip">IP: 192.168.1.101</span>
+            <span class="mission-status">MISSION: SEEKING_IT_SUPPORT_ROLE</span>
             <span id="sys-clock">00:00:00</span>
-            <span>SIGNAL: |||||</span>
+            <span class="sound-toggle" id="sound-btn">[AUDIO: OFF]</span>
         </div>
     </nav>
 
     <header id="home">
         <div class="boot-sequence" id="boot-text"></div>
         <h1 class="hero-name glitch" data-text="FATONEE WAEDARAMAE">FATONEE WAEDARAMAE</h1>
-        <p class="role-text">> FULL_STACK_ENGINEER // SECURITY_ENTHUSIAST<span class="cursor"></span></p>
+        <p class="role-text">> TECHNICAL_SUPPORT // IT_SUPPORT // FULL_STACK_DEVELOPER<span class="cursor"></span></p>
     </header>
 
     <section id="about">
         <h2 class="section-title">01_PROFILE</h2>
         <div class="terminal-window">
-            <div class="terminal-header">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
-                <div class="terminal-title">root@portfolio:~$ cat about.txt</div>
-            </div>
+            <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><div style="margin-left:10px;font-size:0.7rem;color:var(--text-dim)">root@portfolio:~$ cat about.txt</div></div>
             <div class="terminal-body">
-                <p>> Initializing profile retrieval...</p>
                 <p>> Identity: FATONEE WAEDARAMAE</p>
                 <p>> Status: Active</p>
-                <br>
-                <p>IT Support professional with a solid technical background in full-stack development, systems troubleshooting, and end-user training.</p>
-                <p>Graduated in Computer and Informatics for Management from Prince of Songkla University (2025). Adept at breaking down complex technical concepts for non-technical users, and passionate about delivering reliable, user-focused support.</p>
+                <p>> Education: B.Sc. Computer and Informatics for Management | GPAX: 3.20</p>
+                <p>> Institution: Prince of Songkla University, Pattani Campus | 2022 – 2025</p>
+                <p>> Coursework: Data Structures, Database Systems, Software Engineering, Web Development</p><br>
+                <p>IT professional with hands-on experience in full-stack development, systems troubleshooting, and end-user technical support. Skilled at reading workflows and logs, resolving technical issues efficiently under time pressure.</p><br>
+                <p>Strong communicator with experience coordinating cross-functional teams and training users with varying skill levels. Passionate about delivering reliable, user-focused support with a growth mindset.</p><br>
+                <p style="color:var(--accent-amber)"> > CORE_COMPETENCIES: Critical Thinking • Problem Solving • Time Management • Effective Communication • Teamwork • Service Mind • Leadership • Growth Mindset</p>
             </div>
         </div>
     </section>
 
     <section id="skills">
         <h2 class="section-title">02_SYSTEM_SCAN</h2>
-        <div class="skills-grid">
-            <div class="skill-item">
-                <div class="skill-label"><span>REACT / NEXT.JS</span><span>90%</span></div>
-                <div class="progress-track"><div class="progress-fill" data-percent="90"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-label"><span>TYPESCRIPT</span><span>85%</span></div>
-                <div class="progress-track"><div class="progress-fill" data-percent="85"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-label"><span>NODE.JS / EXPRESS</span><span>82%</span></div>
-                <div class="progress-track"><div class="progress-fill" data-percent="82"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-label"><span>PYTHON / PHP</span><span>80%</span></div>
-                <div class="progress-track"><div class="progress-fill" data-percent="80"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-label"><span>MYSQL / MONGODB</span><span>88%</span></div>
-                <div class="progress-track"><div class="progress-fill" data-percent="88"></div></div>
-            </div>
-            <div class="skill-item">
-                <div class="skill-label"><span>LINUX (UBUNTU)</span><span>80%</span></div>
-                <div class="progress-track"><div class="progress-fill" data-percent="80"></div></div>
-            </div>
+        <h3 style="color:var(--accent-amber);font-family:var(--font-display);margin-bottom:20px;font-size:1.5rem">// SUPPORT</h3>
+        <div class="skills-tag-grid" style="margin-bottom:40px">
+            <span class="skill-badge">TROUBLESHOOTING</span>
+            <span class="skill-badge">HARDWARE MAINTENANCE</span>
+            <span class="skill-badge">SYSTEM DIAGNOSTICS</span>
+            <span class="skill-badge">END-USER SUPPORT</span>
+            <span class="skill-badge">VMWARE / TEAMVIEWER / ANYDESK</span>
+            <span class="skill-badge">FILEZILLA</span>
+        </div>
+        <h3 style="color:var(--accent-amber);font-family:var(--font-display);margin-bottom:20px;font-size:1.5rem">// AUTOMATION & TOOLS</h3>
+        <div class="skills-tag-grid" style="margin-bottom:40px">
+            <span class="skill-badge">LOG ANALYSIS</span>
+            <span class="skill-badge">WORKFLOW READING</span>
+            <span class="skill-badge">N8N / REST API</span>
+            <span class="skill-badge">LINUX (UBUNTU)</span>
+            <span class="skill-badge">GOOGLE WORKSPACE</span>
+        </div>
+        <h3 style="color:var(--accent-amber);font-family:var(--font-display);margin-bottom:20px;font-size:1.5rem">// DEVELOPMENT</h3>
+        <div class="skills-tag-grid" style="margin-bottom:40px">
+            <span class="skill-badge">REACT / NEXT.JS</span>
+            <span class="skill-badge">NODE.JS / TYPESCRIPT</span>
+            <span class="skill-badge">PYTHON / PHP</span>
+            <span class="skill-badge">MYSQL / MONGODB</span>
+            <span class="skill-badge">GIT / GITHUB</span>
+        </div>
+        <h3 style="color:var(--accent-amber);font-family:var(--font-display);margin-bottom:20px;font-size:1.5rem">// COMMUNICATION</h3>
+        <div class="skills-tag-grid">
+            <span class="skill-badge">THAI (NATIVE)</span>
+            <span class="skill-badge">ENGLISH (COMMUNICATIVE)</span>
+            <span class="skill-badge">MALAY (COMMUNICATIVE)</span>
+            <span class="skill-badge">EMAIL & REPORT WRITING</span>
         </div>
     </section>
 
     <section id="projects">
-        <h2 class="section-title">03_EXPLOIT_LIST</h2>
+        <h2 class="section-title">03_WORK_EXPERIENCE</h2>
         <div class="projects-grid">
             <div class="project-card">
-                <h3>SEO_CONTENT_MS</h3>
-                <p class="tech-stack"><span class="project-tag">#React</span><span class="project-tag">#NextJS</span><span class="project-tag">#NodeJS</span></p>
-                <p>Backoffice platform with Google Search Console API integration for real-time keyword monitoring.</p>
-                <a href="https://github.com/FatoneeWDRM" class="btn-view">[VIEW_SOURCE]</a>
+                <h3>ARISZA_BRAND_ADVISORY</h3>
+                <p style="color:var(--accent-amber);font-size:0.8rem;margin-bottom:10px">Co-op Internship @ Arisza Thailand | 2025</p>
+                <p class="tech-stack"><span class="project-tag">#React</span><span class="project-tag">#NextJS</span><span class="project-tag">#Vite</span><span class="project-tag">#SEO</span><span class="project-tag">#Google_API</span></p>
+                <p style="margin-top:10px">▸ Corporate website for Arisza Brand Advisory — CEO Branding, business strategy consulting & digital marketing services</p>
+                <p>▸ Integrated Google Search Console API & Ahrefs analytics for SEO optimization</p>
+                <p>▸ Built with React + Vite, deployed to production with Cloudflare</p>
+                <a href="https://www.ariszathailand.com/" target="_blank" class="btn-view">[LIVE_DEMO]</a>
             </div>
             <div class="project-card">
-                <h3>ICOURSE_SYSTEM</h3>
-                <p class="tech-stack"><span class="project-tag">#NextJS</span><span class="project-tag">#TypeScript</span><span class="project-tag">#MongoDB</span></p>
-                <p>Management system supporting learner enrollment, progress tracking, and role-based access control (RBAC).</p>
-                <a href="https://github.com/FatoneeWDRM" class="btn-view">[VIEW_SOURCE]</a>
+                <h3>ONESIAM_FACADE</h3>
+                <p style="color:var(--accent-amber);font-size:0.8rem;margin-bottom:10px">Co-op Internship @ Arisza Thailand | 2025</p>
+                <p class="tech-stack"><span class="project-tag">#PHP</span><span class="project-tag">#Bootstrap</span><span class="project-tag">#MySQL</span><span class="project-tag">#SEO</span><span class="project-tag">#Cloudinary</span></p>
+                <p style="margin-top:10px">▸ Full website for ONE SIAM — Façade design & manufacturing company with 18+ years of experience</p>
+                <p>▸ Multi-language support (Thai, English, Chinese, Japanese) with Google Translate integration</p>
+                <p>▸ Admin panel with CMS for managing projects, articles, products & contact inquiries</p>
+                <a href="https://onesiam.co.th/" target="_blank" class="btn-view">[LIVE_DEMO]</a>
             </div>
             <div class="project-card">
-                <h3>DENTAL_BOOKING</h3>
-                <p class="tech-stack"><span class="project-tag">#PHP</span><span class="project-tag">#MySQL</span></p>
-                <p>Patient-facing scheduling system and dentist dashboard for managing availability and schedules.</p>
-                <a href="https://github.com/FatoneeWDRM" class="btn-view">[VIEW_SOURCE]</a>
+                <h3>ARISZA_ACADEMY</h3>
+                <p style="color:var(--accent-amber);font-size:0.8rem;margin-bottom:10px">Co-op Internship @ Arisza Thailand | 2025</p>
+                <p class="tech-stack"><span class="project-tag">#NextJS</span><span class="project-tag">#E-Learning</span><span class="project-tag">#MongoDB</span><span class="project-tag">#Payment</span><span class="project-tag">#AI</span></p>
+                <p style="margin-top:10px">▸ E-Learning platform for Arisza Academy — online & onsite courses on AI, CEO Branding & digital marketing</p>
+                <p>▸ Course management system with enrollment, payment processing & progress tracking</p>
+                <p>▸ Content delivery for video courses, workshops & certification programs</p>
+                <a href="https://academy.ariszathailand.com/" target="_blank" class="btn-view">[LIVE_DEMO]</a>
             </div>
             <div class="project-card">
-                <h3>FITTRACK_APP</h3>
-                <p class="tech-stack"><span class="project-tag">#React_Native</span></p>
-                <p>Mobile app for calorie calculation and personalized workout planning with trainer-to-user workflow.</p>
-                <a href="https://github.com/FatoneeWDRM" class="btn-view">[VIEW_SOURCE]</a>
+                <h3>MAINECOON4289_CAFE</h3>
+                <p style="color:var(--accent-amber);font-size:0.8rem;margin-bottom:10px">Co-op Internship @ Arisza Thailand | 2025</p>
+                <p class="tech-stack"><span class="project-tag">#React</span><span class="project-tag">#Vite</span><span class="project-tag">#TailwindCSS</span><span class="project-tag">#Cloudinary</span><span class="project-tag">#Booking</span></p>
+                <p style="margin-top:10px">▸ Corporate and booking website for Maine Coon 4289 — Premium Maine Coon breeder & cat café in Pattaya, Thailand</p>
+                <p>▸ Built online reservation and booking system for café visitors and exotic pet encounters</p>
+                <p>▸ Optimized for performance and SEO with Cloudinary image delivery and Ahrefs analytics integration</p>
+                <a href="https://mainecoon4289.com/" target="_blank" class="btn-view">[LIVE_DEMO]</a>
+            </div>
+            <div class="project-card">
+                <h3>IT_SUPPORT_&_SERVICE</h3>
+                <p style="color:var(--accent-amber);font-size:0.8rem;margin-bottom:10px">Family Internet Café (Self-employed) | 2017 – 2022</p>
+                <p class="tech-stack"><span class="project-tag">#Hardware</span><span class="project-tag">#Troubleshooting</span><span class="project-tag">#Customer_Service</span><span class="project-tag">#Maintenance</span></p>
+                <p style="margin-top:10px">▸ Provided front-line technical support to daily walk-in customers — troubleshooting hardware, software, and printer issues with focus on fast resolution</p>
+                <p>▸ Performed hardware maintenance including PC cleaning, component checks, and peripheral repairs</p>
+                <p>▸ Managed customer-facing operations independently — handling issue logging and escalation when needed</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="portfolio">
+        <h2 class="section-title">04_PORTFOLIO</h2>
+        <div class="projects-grid">
+            <div class="project-card">
+                <h3>ICT_IGNITER_CAMP</h3>
+                <p style="color:var(--accent-amber);font-size:0.8rem;margin-bottom:10px">Volunteer / Lecturer | Prince of Songkla University | 2022 – 2024</p>
+                <p class="tech-stack"><span class="project-tag">#Unity</span><span class="project-tag">#YOLOv11</span><span class="project-tag">#AI</span><span class="project-tag">#Teaching</span><span class="project-tag">#Workshop</span></p>
+                <p style="margin-top:10px">▸ Facilitated Unity game dev workshop for 30+ participants — troubleshooting real-time technical issues for users with varying skill levels</p>
+                <p>▸ Delivered technical lecture on AI object detection (YOLOv11), translating complex topics into accessible content</p>
+                <p>▸ Mentored students through hands-on coding exercises and project development</p>
+                <div class="gallery-grid" data-gallery="ict">
+                    <div class="gallery-thumb" onclick="openLightbox('ict',0)"><img src="images/ict-igniter/486076260_9946667835448839_2435447828082464584_n.jpg" alt="ICT Igniter - Unity Workshop" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('ict',1)"><img src="images/ict-igniter/489828107_1221092773104301_7063948004148291216_n.jpg" alt="ICT Igniter - YOLOv11 Demo" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('ict',2)"><img src="images/ict-igniter/489833261_1221092726437639_5819248748730434217_n.jpg" alt="ICT Igniter - Group Photo" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('ict',3)"><img src="images/ict-igniter/DSC_0300.JPG" alt="ICT Igniter - Presentation" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('ict',4)"><img src="images/ict-igniter/IMG_0779.JPG" alt="ICT Igniter - Camp 2023" loading="lazy"></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3>PATTANI_ESPORT</h3>
+                <p style="color:var(--accent-amber);font-size:0.8rem;margin-bottom:10px">Pattani E-Sports Club | TESF x ศอ.บต. | 2025</p>
+                <p class="tech-stack"><span class="project-tag">#ROV</span><span class="project-tag">#TESF</span><span class="project-tag">#Esport</span><span class="project-tag">#Event_Management</span><span class="project-tag">#Community</span></p>
+                <p style="margin-top:10px">▸ Staff & Judge at ROV Pattani Esports Tournament — organized by ศอ.บต. ร่วมกับ สมาคมกีฬาอีสปอร์ตแห่งประเทศไทย (TESF)</p>
+                <p>▸ Completed TESF professional esport training program — อบรมสร้างอาชีพในกีฬาอีสปอร์ต ประเภท ผู้ตัดสิน</p>
+                <p>▸ Coordinated event logistics, live tournament management & community engagement across southern Thailand esport clubs</p>
+                <div class="gallery-grid" data-gallery="esport">
+                    <div class="gallery-thumb" onclick="openLightbox('esport',0)"><img src="images/pattani-esport/IMG_8422.JPG" alt="ROV Pattani Esports Tournament" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('esport',1)"><img src="images/pattani-esport/IMG_0094.JPG" alt="Esport Tournament - Gameplay" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('esport',2)"><img src="images/pattani-esport/0940befe-91a3-4bee-8241-dcc014e84a0e.jpg" alt="TESF Certificate" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('esport',3)"><img src="images/pattani-esport/104c69db-1d5c-4b6b-b942-ce82815efcbb.jpg" alt="Pattani Esport - Group" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('esport',4)"><img src="images/pattani-esport/61f2a91e-8952-42be-a5d6-91a83421f5b7.jpg" alt="TESF Training" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('esport',5)"><img src="images/pattani-esport/3f4f702e-5354-4b4b-a880-0454818c744f.jpg" alt="Certificate" loading="lazy"></div>
+                </div>
+            </div>
+            <div class="project-card">
+                <h3>GLOBAL_EXCHANGE_PROGRAM</h3>
+                <p style="color:var(--accent-amber);font-size:0.8rem;margin-bottom:10px">Universiti Teknologi MARA (UiTM) | Malaysia | 2024</p>
+                <p class="tech-stack"><span class="project-tag">#UiTM</span><span class="project-tag">#Exchange</span><span class="project-tag">#Malaysia</span><span class="project-tag">#Cultural_Exchange</span><span class="project-tag">#Networking</span></p>
+                <p style="margin-top:10px">▸ Selected to participate in an international student exchange program at UiTM, Malaysia</p>
+                <p>▸ Gained cross-cultural communication skills and adapted to international academic environments</p>
+                <p>▸ Built a global network with students and professionals while collaborating on diverse activities</p>
+                <div class="gallery-grid" data-gallery="uitm">
+                    <div class="gallery-thumb" onclick="openLightbox('uitm',0)"><img src="images/uitm/489819280_1222585279621717_9060572705422553630_n.jpg" alt="UiTM Exchange 1" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('uitm',1)"><img src="images/uitm/489938831_1222585276288384_5308437108380953322_n.jpg" alt="UiTM Exchange 2" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('uitm',2)"><img src="images/uitm/490217353_1222585296288382_3520197245533259286_n.jpg" alt="UiTM Exchange 3" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('uitm',3)"><img src="images/uitm/6122f1b6-c274-448a-82c4-d81b3e16db10.jpg" alt="UiTM Exchange 4" loading="lazy"></div>
+                    <div class="gallery-thumb" onclick="openLightbox('uitm',4)"><img src="images/uitm/ea7f6c5b-ef49-42b5-88d5-387843bc3167.jpg" alt="UiTM Exchange 5" loading="lazy"></div>
+                </div>
             </div>
         </div>
     </section>
 
     <section id="contact">
-        <h2 class="section-title">04_SECURE_CHANNEL</h2>
+        <h2 class="section-title">05_SECURE_CHANNEL</h2>
         <div class="terminal-window contact-form">
-            <div class="terminal-header">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
-                <div class="terminal-title">root@portfolio:~$ finger fatonee</div>
-            </div>
+            <div class="terminal-header"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div><div style="margin-left:10px;font-size:0.7rem;color:var(--text-dim)">root@portfolio:~$ finger fatonee</div></div>
             <div class="terminal-body">
-                <div style="margin-bottom: 30px; font-family: var(--font-ui); color: var(--accent-amber);">
+                <div style="margin-bottom:20px;color:var(--accent-amber)">
                     <p>> [LOC]: Thailand</p>
                     <p>> [TEL]: 0824605206</p>
                     <p>> [EML]: fatonee2026@gmail.com</p>
                     <p>> [HUB]: github.com/FatoneeWDRM</p>
                 </div>
                 <form id="hacker-form">
-                    <div class="form-group">
-                        <label>_IDENTIFIER</label>
-                        <input type="text" placeholder="Enter your name..." required>
-                    </div>
-                    <div class="form-group">
-                        <label>_COMMS_LINK</label>
-                        <input type="email" placeholder="Enter your email..." required>
-                    </div>
-                    <div class="form-group">
-                        <label>_ENCRYPTED_MESSAGE</label>
-                        <textarea rows="4" placeholder="Type your message..."></textarea>
-                    </div>
+                    <div class="form-group"><label>_IDENTIFIER</label><input type="text" placeholder="Enter name..." required></div>
+                    <div class="form-group"><label>_COMMS_LINK</label><input type="email" placeholder="Enter email..." required></div>
+                    <div class="form-group"><label>_MESSAGE</label><textarea rows="3" placeholder="Type message..."></textarea></div>
                     <button type="submit" class="btn-submit">> SEND_MESSAGE.exe</button>
                 </form>
-                <div id="form-status" style="margin-top: 20px; color: var(--accent-cyan); display: none;"></div>
+                <div id="form-status" style="margin-top:20px;color:var(--accent-cyan);display:none"></div>
             </div>
         </div>
     </section>
 
+    <div id="terminal-overlay">
+        <div class="term-header" id="term-header"><span>COMMAND_PROMPT</span><span>_ □ X</span></div>
+        <div class="term-body" id="term-body"><div>Type 'help' for commands.</div></div>
+        <div class="term-input-line"><span>></span><input type="text" class="term-input" id="term-input" autocomplete="off"></div>
+    </div>
+
     <script>
-        // Background Canvas Effect (Subtle Binary/Matrix)
         const canvas = document.getElementById('bg-canvas');
         const ctx = canvas.getContext('2d');
         let width, height;
-
-        function resize() {
-            width = canvas.width = window.innerWidth;
-            height = canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resize);
-        resize();
-
-        const chars = '01';
-        const fontSize = 14;
-        const columns = Math.floor(width / fontSize);
-        const drops = Array(columns).fill(1);
-
-        function draw() {
-            ctx.fillStyle = 'rgba(5, 8, 16, 0.05)';
-            ctx.fillRect(0, 0, width, height);
-            ctx.fillStyle = '#00d4ff';
-            ctx.font = fontSize + 'px monospace';
-
-            for (let i = 0; i < drops.length; i++) {
-                const text = chars.charAt(Math.floor(Math.random() * chars.length));
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                if (drops[i] * fontSize > height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
-                drops[i]++;
-            }
-        }
+        function resize() { width = canvas.width = window.innerWidth; height = canvas.height = window.innerHeight; }
+        window.addEventListener('resize', resize); resize();
+        const chars = '01'; const fontSize = 14; const columns = Math.floor(width / fontSize); const drops = Array(columns).fill(1);
+        function draw() { ctx.fillStyle = 'rgba(5, 8, 16, 0.05)'; ctx.fillRect(0, 0, width, height); ctx.fillStyle = '#00d4ff'; ctx.font = fontSize + 'px monospace'; for (let i = 0; i < drops.length; i++) { const text = chars.charAt(Math.floor(Math.random() * chars.length)); ctx.fillText(text, i * fontSize, drops[i] * fontSize); if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0; drops[i]++; } }
         setInterval(draw, 50);
 
-        // System Clock
-        function updateClock() {
-            const now = new Date();
-            const time = now.getHours().toString().padStart(2, '0') + ':' +
-                         now.getMinutes().toString().padStart(2, '0') + ':' +
-                         now.getSeconds().toString().padStart(2, '0');
-            document.getElementById('sys-clock').textContent = time;
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
+        function updateClock() { const now = new Date(); document.getElementById('sys-clock').textContent = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0') + ':' + now.getSeconds().toString().padStart(2, '0'); }
+        setInterval(updateClock, 1000); updateClock();
 
-        // Typewriter Effect for Boot Sequence
-        const bootLines = [
-            "> Initializing system...",
-            "> Loading kernel modules...",
-            "> Checking network interfaces...",
-            "> ACCESS GRANTED",
-            "> Loading profile: FATONEE WAEDARAMAE"
-        ];
+        const bootLines = ["> Initializing system...", "> Loading modules...", "> Technical Support | IT Support | Full Stack Developer", "> ACCESS GRANTED", "> Loading profile: FATONEE WAEDARAMAE"];
         const bootText = document.getElementById('boot-text');
         let lineIdx = 0;
-
-        function typeBootLine() {
-            if (lineIdx < bootLines.length) {
-                const p = document.createElement('p');
-                bootText.appendChild(p);
-                let charIdx = 0;
-                const line = bootLines[lineIdx];
-                
-                function typeChar() {
-                    if (charIdx < line.length) {
-                        p.textContent += line[charIdx];
-                        charIdx++;
-                        setTimeout(typeChar, 30);
-                    } else {
-                        lineIdx++;
-                        setTimeout(typeBootLine, 200);
-                    }
-                }
-                typeChar();
-            }
-        }
+        function typeBootLine() { if (lineIdx < bootLines.length) { const p = document.createElement('p'); bootText.appendChild(p); let charIdx = 0; const line = bootLines[lineIdx]; function typeChar() { if (charIdx < line.length) { p.textContent += line[charIdx++]; setTimeout(typeChar, 30); } else { lineIdx++; setTimeout(typeBootLine, 200); } } typeChar(); } }
         typeBootLine();
 
-        // Skill Bars Animation on Scroll
-        const observerOptions = { threshold: 0.5 };
-        const skillObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const fills = entry.target.querySelectorAll('.progress-fill');
-                    fills.forEach(fill => {
-                        fill.style.width = fill.getAttribute('data-percent') + '%';
-                    });
-                }
-            });
-        }, observerOptions);
+        const skillObserver = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) { entry.target.querySelectorAll('.progress-fill').forEach(fill => fill.style.width = fill.getAttribute('data-percent') + '%'); } }); }, { threshold: 0.5 });
         skillObserver.observe(document.getElementById('skills'));
 
-        // Form Handling Simulation
-        const form = document.getElementById('hacker-form');
-        const status = document.getElementById('form-status');
+        document.querySelectorAll('nav a').forEach(anchor => { anchor.addEventListener('click', function(e) { e.preventDefault(); document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' }); document.querySelectorAll('nav a').forEach(a => a.classList.remove('active')); this.classList.add('active'); document.getElementById('nav-links').classList.remove('open'); }); });
+        document.getElementById('menu-toggle').addEventListener('click', () => document.getElementById('nav-links').classList.toggle('open'));
 
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            form.style.display = 'none';
-            status.style.display = 'block';
-            status.textContent = '> Establishing secure connection...';
-            
-            setTimeout(() => {
-                status.textContent = '> Encrypting packet data...';
-                setTimeout(() => {
-                    status.textContent = '> MESSAGE SENT SUCCESSFULLY. LOGGING OUT...';
-                }, 1500);
-            }, 1000);
+        // Sound System
+        const soundBtn = document.getElementById('sound-btn');
+        let audioOn = false; const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        
+        function playSound(f, t, d, v, sweep = 0) { 
+            if (!audioOn) return; 
+            const o = audioCtx.createOscillator(); const g = audioCtx.createGain(); 
+            o.type = t; o.frequency.setValueAtTime(f, audioCtx.currentTime); 
+            if (sweep) o.frequency.exponentialRampToValueAtTime(f + sweep, audioCtx.currentTime + d);
+            g.gain.setValueAtTime(v, audioCtx.currentTime); 
+            g.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + d); 
+            o.connect(g); g.connect(audioCtx.destination); 
+            o.start(); o.stop(audioCtx.currentTime + d); 
+        }
+        
+        const sfx = {
+            hover: () => playSound(150, 'sine', 0.1, 0.05, 50),
+            click: () => playSound(400, 'square', 0.1, 0.05, -200),
+            success: () => { playSound(600, 'sine', 0.1, 0.05); setTimeout(() => playSound(800, 'sine', 0.1, 0.05), 100); },
+            denied: () => { playSound(150, 'sawtooth', 0.2, 0.05); playSound(100, 'sawtooth', 0.2, 0.05); },
+            type: () => playSound(Math.random()*100+400, 'square', 0.05, 0.02),
+            hack: () => playSound(Math.random()*500+100, 'sawtooth', 0.1, 0.03)
+        };
+
+        soundBtn.addEventListener('click', () => { 
+            audioOn = !audioOn; if (audioOn && audioCtx.state === 'suspended') audioCtx.resume(); 
+            soundBtn.textContent = audioOn ? '[AUDIO: ON]' : '[AUDIO: OFF]'; 
+            soundBtn.style.color = audioOn ? 'var(--accent-cyan)' : 'var(--accent-amber)'; 
+            if (audioOn) sfx.success(); 
         });
 
-        // Smooth Scroll & Active Link
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-                this.classList.add('active');
-            });
+        // Attach hover sounds
+        document.querySelectorAll('nav a, .project-card, .btn-view, .btn-submit, #term-header').forEach(el => {
+            el.addEventListener('mouseenter', sfx.hover);
+        });
+
+        // Terminal Logic
+        const termOverlay = document.getElementById('terminal-overlay');
+        const termInput = document.getElementById('term-input');
+        const termBody = document.getElementById('term-body');
+        document.getElementById('term-header').addEventListener('click', () => { sfx.click(); termOverlay.classList.toggle('minimized'); });
+
+        const commands = { 'help': 'Commands: help, clear, about, skills, projects, portfolio, contact, status, hack, resume', 'clear': 'CLEAR', 'about': 'Loading [PROFILE]...', 'skills': 'Scanning [SYSTEM]...', 'projects': 'Listing [WORK_EXPERIENCE]...', 'portfolio': 'Loading [PORTFOLIO]...', 'contact': 'Opening [CHANNEL]...', 'status': 'MISSION: SEEKING_OPPORTUNITIES | Technical Support / IT Support / Full Stack Developer', 'hack': 'INITIALIZING...', 'resume': 'Downloading Resume_Fatonee_IT.pdf...' };
+        
+        function runHack() {
+            const steps = ["Vulnerability scan...", "Port 8080: OPEN", "Bypassing firewall...", "ACCESS GRANTED!", "Welcome, FATONEE."];
+            let i = 0; const itv = setInterval(() => { 
+                if (i < steps.length) { 
+                    sfx.hack();
+                    const d = document.createElement('div'); d.textContent = `[!] ${steps[i++]}`; 
+                    d.style.color = i === 4 ? 'var(--accent-cyan)' : 'var(--accent-amber)'; 
+                    termBody.appendChild(d); termBody.scrollTop = termBody.scrollHeight; 
+                    if (i === 4) sfx.success();
+                } else clearInterval(itv); 
+            }, 600);
+        }
+
+        termInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const cmd = termInput.value.toLowerCase().trim();
+                const out = document.createElement('div'); out.textContent = `> ${cmd}`; termBody.appendChild(out);
+                if (commands[cmd]) {
+                    sfx.click();
+                    if (cmd === 'clear') termBody.innerHTML = '<div>Type "help" for commands.</div>';
+                    else if (cmd === 'hack') runHack();
+                    else {
+                        const resp = document.createElement('div'); resp.style.color = 'var(--accent-amber)'; resp.textContent = commands[cmd]; termBody.appendChild(resp);
+                        if (['about','skills','projects','portfolio','contact'].includes(cmd)) document.getElementById(cmd).scrollIntoView({behavior:'smooth'});
+                    }
+                } else { sfx.denied(); const err = document.createElement('div'); err.style.color = 'var(--danger)'; err.textContent = `Err: ${cmd} not found`; termBody.appendChild(err); }
+                termInput.value = ''; termBody.scrollTop = termBody.scrollHeight;
+            }
+        });
+
+        termInput.addEventListener('input', () => { if (termInput.value.length > 0) sfx.type(); });
+
+        const form = document.getElementById('hacker-form');
+        const status = document.getElementById('form-status');
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            sfx.success();
+            const inputs = form.querySelectorAll('input, textarea');
+            const name = inputs[0].value; const email = inputs[1].value; const msg = inputs[2].value;
+            const subject = encodeURIComponent(`PORTFOLIO_MSG: From ${name}`);
+            const body = encodeURIComponent(`Sender: ${name}\nContact: ${email}\n\nMessage:\n${msg}`);
+            form.style.display = 'none'; status.style.display = 'block'; status.textContent = '> INITIALIZING_MAILTO_PROTOCOL...';
+            setTimeout(() => {
+                window.location.href = `mailto:fatonee2026@gmail.com?subject=${subject}&body=${body}`;
+                status.textContent = '> CONNECTION_ESTABLISHED. LOGGING_OUT.';
+            }, 1000);
+        });
+    </script>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox-overlay" id="lightbox">
+        <span class="lightbox-close" onclick="closeLightbox()">[X]</span>
+        <span class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)">◄</span>
+        <img class="lightbox-img" id="lightbox-img" src="" alt="Gallery Image">
+        <span class="lightbox-nav lightbox-next" onclick="navLightbox(1)">►</span>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
+
+    <script>
+        const galleries = {
+            ict: [
+                'images/ict-igniter/486076260_9946667835448839_2435447828082464584_n.jpg',
+                'images/ict-igniter/489828107_1221092773104301_7063948004148291216_n.jpg',
+                'images/ict-igniter/489833261_1221092726437639_5819248748730434217_n.jpg',
+                'images/ict-igniter/DSC_0300.JPG',
+                'images/ict-igniter/IMG_0779.JPG'
+            ],
+            esport: [
+                'images/pattani-esport/IMG_8422.JPG',
+                'images/pattani-esport/IMG_0094.JPG',
+                'images/pattani-esport/0940befe-91a3-4bee-8241-dcc014e84a0e.jpg',
+                'images/pattani-esport/104c69db-1d5c-4b6b-b942-ce82815efcbb.jpg',
+                'images/pattani-esport/61f2a91e-8952-42be-a5d6-91a83421f5b7.jpg',
+                'images/pattani-esport/3f4f702e-5354-4b4b-a880-0454818c744f.jpg'
+            ],
+            uitm: [
+                'images/uitm/489819280_1222585279621717_9060572705422553630_n.jpg',
+                'images/uitm/489938831_1222585276288384_5308437108380953322_n.jpg',
+                'images/uitm/490217353_1222585296288382_3520197245533259286_n.jpg',
+                'images/uitm/6122f1b6-c274-448a-82c4-d81b3e16db10.jpg',
+                'images/uitm/ea7f6c5b-ef49-42b5-88d5-387843bc3167.jpg'
+            ]
+        };
+        let currentGallery = null;
+        let currentIndex = 0;
+
+        function openLightbox(gallery, index) {
+            currentGallery = gallery;
+            currentIndex = index;
+            updateLightbox();
+            document.getElementById('lightbox').classList.add('active');
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.remove('active');
+        }
+
+        function navLightbox(dir) {
+            const imgs = galleries[currentGallery];
+            currentIndex = (currentIndex + dir + imgs.length) % imgs.length;
+            updateLightbox();
+        }
+
+        function updateLightbox() {
+            const imgs = galleries[currentGallery];
+            document.getElementById('lightbox-img').src = imgs[currentIndex];
+            document.getElementById('lightbox-counter').textContent = `[ ${currentIndex + 1} / ${imgs.length} ]`;
+        }
+
+        document.getElementById('lightbox').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('lightbox')) closeLightbox();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('lightbox').classList.contains('active')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') navLightbox(-1);
+            if (e.key === 'ArrowRight') navLightbox(1);
         });
     </script>
 </body>
